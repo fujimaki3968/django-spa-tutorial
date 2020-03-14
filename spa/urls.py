@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include  # includeを追加
-
+from polls import api
 from polls.urls import question_router
 
 api_urlpatterns = [
-    path('questions/', include(question_router.urls))
+    path('questions/', include(question_router.urls)),
+    path('choices/<int:choice_id>/vote/', api.VoteView.as_view()),
 ]
 
 urlpatterns = [
