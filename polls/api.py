@@ -3,6 +3,7 @@ from rest_framework import generics
 from rest_framework.response import Response
 from .models import Question, Choice
 from .serializers import QuestionSerializer, ChoiceSerializer
+from rest_framework.permissions import IsAuthenticated
 
 
 class QuestionViewSet(ReadOnlyModelViewSet):
@@ -12,6 +13,8 @@ class QuestionViewSet(ReadOnlyModelViewSet):
 
 class VoteView(generics.CreateAPIView):
     serializer_class = ChoiceSerializer
+    permission_classes = [IsAuthenticated]
+
     def post(self, request, choice_id, *args, **kwargs):
         choice = generics.get_object_or_404(
             queryset=Choice.objects.all(),

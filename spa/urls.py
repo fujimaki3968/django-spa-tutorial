@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include  # includeを追加
 from polls import api
 from polls.urls import question_router
-from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token
 
 api_urlpatterns = [
     path('questions/', include(question_router.urls)),
@@ -26,6 +26,7 @@ api_urlpatterns = [
 
 urlpatterns = [
     path('auth/', obtain_jwt_token),
+    path('auth/verify/', verify_jwt_token),
     path('admin/', admin.site.urls),
     path('api/', include(api_urlpatterns))
 ]
